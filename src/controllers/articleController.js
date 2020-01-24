@@ -21,21 +21,46 @@ const saveArticle = (req, res) => {
   let { title, body } = req.body;
 
   db.get("posts")
-    .push({ id: uuid.v4(), title, body })
+    .push({
+      id: uuid.v4(),
+      title,
+      body,
+      createdAt: new Date().toLocaleString()
+    })
     .write();
 
   res.redirect("/");
 };
 
 const editArticle = (req, res) => {
-  create.log(req.body);
   let { title, body } = req.body;
   db.get("posts")
     .find({ id: req.params.id })
     .assign({ title, body })
     .write();
 
+  res.render("Article.index");
+};
+
+const viewArticleForEdit = (req, res) => {
+  let post = db.get("posts").find({ id: req.params.id });
+  res.render("Article.create", { post: post.toJSON() });
+};
+
+const deleteArticle = (req, res) => {
+  db.get("posts")
+    .remove({ id: req.params.id })
+    .write();
+
   res.redirect("/");
 };
 
-module.exports = { home, create, saveArticle, getSingleArtile, editArticle };
+module.exports = {
+  home,
+  create,
+  saveArticle,
+  deleteArticle,
+  getSingleArtile,
+  editArticle,
+  viewArticleForEdit
+};

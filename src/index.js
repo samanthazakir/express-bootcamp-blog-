@@ -12,9 +12,9 @@ app.set("views", `${__dirname}/views`);
 
 app.use(express.static("public"));
 
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.listen();
+app.listen(3000);
 
 app.use(require("./routes"));

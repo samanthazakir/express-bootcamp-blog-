@@ -4,7 +4,7 @@
 @section('page-content')
     
     @each(post in posts.toJSON())
-        @!component('components.article' , title=post.title , body = post.body , id=post.id)
+        @!component('components.article' , title=post.title , body = post.body , id=post.id, time=post.createdAt)
     @endeach
 
 @endsection

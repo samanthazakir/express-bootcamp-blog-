@@ -1,6 +1,6 @@
 const Router = require("express").Router();
 
-Router.use("/articles", require("./article"));
+Router.use("/articles", require("./articles"));
 Router.all("/", (req, res) => {
   res.redirect("/articles");
 });
